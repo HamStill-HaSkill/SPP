@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TracerLib": {
+      "commandName": "Project",
+      "remoteDebugEnabled": false
+    }
+  }
+}

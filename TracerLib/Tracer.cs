@@ -2,7 +2,19 @@
 
 namespace TracerLib
 {
-    public class Tracer
+    public class Tracer : ITracer
     {
+        public void StartTrace()
+        {
+
+        }
+        public void StopTrace()
+        {
+
+        }
+        public TraceResult TraceResult()
+        {
+            return new TraceResult();
+        }
     }
 }
