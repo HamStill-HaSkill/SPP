@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TracerLib;
 
-namespace TracerLib
+namespace TracerOutput
 {
     interface ISerialize
     {
-        string Serialize();
+        string Serialize(ITracer tracer);
         
     }
 }

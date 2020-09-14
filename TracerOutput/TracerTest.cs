@@ -17,7 +17,7 @@ namespace TracerOutput
         {
             _tracer.StartTrace();
             Thread.Sleep(1000);
-            _tracer.StartTrace();
+            _tracer.StopTrace();
         }
     }
 }

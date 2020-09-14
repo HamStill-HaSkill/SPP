@@ -12,8 +12,6 @@ namespace TracerOutput
 
             tester.TestMethod();
             outputResultToConsole.OutputResult(tracer);
-
-
         }
     }
 }

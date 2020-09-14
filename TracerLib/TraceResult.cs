@@ -2,6 +2,6 @@
 {
     public struct TraceResult
     {
-
+        public long time;
     }
 }

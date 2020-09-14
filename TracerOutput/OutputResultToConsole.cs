@@ -10,7 +10,8 @@ namespace TracerOutput
     {
         public void OutputResult(ITracer tracer)
         {
-            Console.WriteLine(tracer.TraceResult());
+            SerializeToJSON serializer = new SerializeToJSON();
+            Console.WriteLine(serializer.Serialize(tracer));
         }
     }
 }

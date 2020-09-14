@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TracerLib;
 
-namespace TracerLib
+namespace TracerOutput
 {
-    class SerializeToJSON : ISerialize
+    public class SerializeToXML : ISerialize
     {
-        public string Serialize()
+        public string Serialize(ITracer tracer)
         {
             throw new NotImplementedException();
         }
