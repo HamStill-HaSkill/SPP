@@ -16,7 +16,41 @@ namespace TracerOutput
         public void TestMethod()
         {
             _tracer.StartTrace();
-            Thread.Sleep(1000);
+            TracerTestSecond testik = new TracerTestSecond(_tracer);
+            testik.TesterBBBBBBBBBB();
+            Thread.Sleep(100);
+            _tracer.StopTrace();
+        }
+        public void TestTestTset()
+        {
+            _tracer.StartTrace();
+            Thread.Sleep(300);
+            TracerTestSecond testik = new TracerTestSecond(_tracer);
+            testik.TesterAAAAAAAAA();
+            _tracer.StopTrace();
+
+
+        }
+    }
+    class TracerTestSecond
+    {
+        private ITracer _tracer;
+        internal TracerTestSecond(ITracer tracer)
+        {
+            _tracer = tracer;
+        }
+        public void TesterAAAAAAAAA()
+        {
+            _tracer.StartTrace();
+            Thread.Sleep(200);
+            _tracer.StopTrace();
+        }
+        public void TesterBBBBBBBBBB()
+        {
+            _tracer.StartTrace();
+            TracerTestSecond testik = new TracerTestSecond(_tracer);
+            testik.TesterAAAAAAAAA();
+            Thread.Sleep(500);
             _tracer.StopTrace();
         }
     }

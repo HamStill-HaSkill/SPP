@@ -10,7 +10,7 @@ namespace TracerOutput
     {
         public string Serialize(ITracer tracer)
         {
-            return JsonConvert.SerializeObject(tracer.TraceResult());
+            return JsonConvert.SerializeObject(tracer.TraceResult(), Formatting.Indented);
         }
     }
 }
