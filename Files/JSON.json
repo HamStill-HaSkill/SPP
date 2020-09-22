@@ -1,0 +1,62 @@
+{
+  "Threads": [
+    {
+      "Id": 1,
+      "Time": 1314,
+      "Methods": [
+        {
+          "Time": 814,
+          "MethodName": "TestMethod",
+          "ClassName": "TracerTest",
+          "Methods": [
+            {
+              "Time": 713,
+              "MethodName": "TesterBBBBBBBBBB",
+              "ClassName": "TracerTestSecond",
+              "Methods": [
+                {
+                  "Time": 207,
+                  "MethodName": "TesterAAAAAAAAA",
+                  "ClassName": "TracerTestSecond",
+                  "Methods": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Time": 500,
+          "MethodName": "TestTestTset",
+          "ClassName": "TracerTest",
+          "Methods": [
+            {
+              "Time": 200,
+              "MethodName": "TesterAAAAAAAAA",
+              "ClassName": "TracerTestSecond",
+              "Methods": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": 5,
+      "Time": 501,
+      "Methods": [
+        {
+          "Time": 501,
+          "MethodName": "TestTestTset",
+          "ClassName": "TracerTest",
+          "Methods": [
+            {
+              "Time": 200,
+              "MethodName": "TesterAAAAAAAAA",
+              "ClassName": "TracerTestSecond",
+              "Methods": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

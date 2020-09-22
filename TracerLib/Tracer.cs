@@ -9,81 +9,99 @@ namespace TracerLib
 {
     public class Tracer : ITracer
     {
-        private ConcurrentStack<TraceResult> timesQueue = new ConcurrentStack<TraceResult>();
-        private ConcurrentStack<Stopwatch> stack = new ConcurrentStack<Stopwatch>();
+        private ConcurrentStack<TraceResult> timesStack = new ConcurrentStack<TraceResult>();
+        private ConcurrentStack<Stopwatch> watchesStack = new ConcurrentStack<Stopwatch>();
         
         public void StartTrace()
         {
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            stack.Push(stopWatch);
+            watchesStack.Push(stopWatch);
         }
         public void StopTrace()
         {
             Stopwatch stopWatch = new Stopwatch();
-            stack.TryPop(out stopWatch);
+            watchesStack.TryPop(out stopWatch);
             stopWatch.Stop();
-            
+
+            // Get id of the current thread
             int threadId = Thread.CurrentThread.ManagedThreadId;
             MethodBase methodBase = new StackTrace().GetFrame(1).GetMethod();
 
             TraceResult result = new TraceResult
             {
                 Time = stopWatch.ElapsedMilliseconds,
-                Methodlevel = stack.Count,
+                Methodlevel = watchesStack.Count,
                 MethodName = methodBase.Name,
-                ClassName = methodBase.ReflectedType.ToString(),
+                ClassName = methodBase.DeclaringType.Name,
                 ThreadId = threadId
             };
 
+            // Add child methods to their parent methods
             TraceResult temp = new TraceResult();
-            timesQueue.TryPeek(out temp);
+            timesStack.TryPeek(out temp);
             if (temp != null)
             {
                 if (temp.Methodlevel > 0)
                 {
                     result.Methods.Add(temp);
-                    timesQueue.TryPop(out _);
+                    timesStack.TryPop(out _);
                 }
             }
-
-
-            timesQueue.Push(result);
+            timesStack.Push(result);
         }
         public ProgramThreads TraceResult()
         {
-            //TraceResult result = new TraceResult();
-            //result.time = stopTime - startTime;
-            //return result;
-            TraceResult temp = new TraceResult();
-            List<int> thredIds = new List<int>();
+            // Get all thread id
+            TraceResult temp = new TraceResult();         
+            var methodsList = timesStack.ToArray();
+            List<int> thredIds = GetThreadIds(methodsList, new List<int>());
+
             ProgramThreads programThreads = new ProgramThreads();
             programThreads.Threads = new List<ThreadResult>();
-            var methodsList = timesQueue.ToArray();
-            foreach (var method in methodsList)
-            {
-                if (!thredIds.Contains(method.ThreadId))
-                {
-                    thredIds.Add(method.ThreadId);
-                }
-            }
+            
+            // Add methods to their parent threads
             foreach (var id in thredIds)
             {
-                programThreads.Threads.Add(new ThreadResult(id));
-                foreach (var method in methodsList)
-                {
-                    if (method.ThreadId == id)
-                    {
-                        programThreads.Threads[^1].Time += method.Time;
-                        programThreads.Threads[^1].Methods.Add(method);
-                    }
-                }
+                programThreads.Threads.Add(new ThreadResult());
+                programThreads.Threads[^1].Id = id;
+                programThreads = GetMethodListGropedById(programThreads, methodsList, id);
             }
             foreach (var thread in programThreads.Threads)
             {
                 thread.Methods.Reverse();
             }
+
             programThreads.Threads.Reverse();
+            return programThreads;
+        }
+        
+        public static List<int> GetThreadIds(TraceResult[] methodsList, List<int> thredIds)
+        {
+            foreach (var method in methodsList)
+            {
+                if (method.Methods.Count > 0)
+                {
+                    thredIds = GetThreadIds(method.Methods.ToArray(), thredIds);
+                }
+                if (!thredIds.Contains(method.ThreadId))
+                {
+                    thredIds.Add(method.ThreadId);
+                }
+            }
+            return thredIds;
+        }
+
+        public static ProgramThreads GetMethodListGropedById(ProgramThreads programThreads, TraceResult[] methodsList, int id)
+        {
+            foreach (var method in methodsList)
+            {
+                if (method.ThreadId == id)
+                {
+                    programThreads.Threads[^1].Time += method.Time;
+                    programThreads.Threads[^1].Methods.Add(method);
+                }
+            }
             return programThreads;
         }
     }

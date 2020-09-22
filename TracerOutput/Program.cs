@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Threading;
 using TracerLib;
 namespace TracerOutput
@@ -12,13 +13,31 @@ namespace TracerOutput
             TracerTest tester = new TracerTest(tracer);
 
             tester.TestMethod();
-            
-            var testThread = new Thread(() => {
+            tester.TestTestTset();
+
+            var testThread = new Thread(() =>
+            {
                 tester.TestTestTset();
             });
             testThread.Start();
             testThread.Join();
-            outputResultToConsole.OutputResult(tracer);
+            
+            SerializeToJSON serializerJSON = new SerializeToJSON();
+            SerializeToXML serializerXML = new SerializeToXML();
+            OutputResultToFile outputResultToFile = new OutputResultToFile();
+            outputResultToConsole.OutputResult(serializerJSON.Serialize(tracer));
+            outputResultToConsole.OutputResult(serializerXML.Serialize(tracer));
+            outputResultToFile.SavePath = "C:\\Users\\Xiaomi\\source\\repos\\TracerLib\\SPP\\Files\\JSON.json";
+            outputResultToFile.OutputResult(serializerJSON.Serialize(tracer));
+            outputResultToFile.SavePath = "C:\\Users\\Xiaomi\\source\\repos\\TracerLib\\SPP\\Files\\XML.xml";
+            outputResultToFile.OutputResult(serializerXML.Serialize(tracer));
+            Console.WriteLine(JsonConvert.SerializeObject(new TraceResult
+            {
+                MethodName = "Method",
+                ClassName = "TracerTests.OneMethod"
+            }));
+            Console.WriteLine(JsonConvert.SerializeObject(tracer.TraceResult().Threads[0].Methods[0]));
+
         }
     }
 }

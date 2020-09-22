@@ -10,12 +10,9 @@ namespace TracerOutput
 {
     class OutputResultToConsole : IOutputResult
     {
-        public void OutputResult(ITracer tracer)
-        {
-            SerializeToJSON serializer = new SerializeToJSON();
-            
-            Console.WriteLine(serializer.Serialize(tracer));
-
+        public void OutputResult(string result)
+        {           
+            Console.WriteLine(result);
         }
     }
 }

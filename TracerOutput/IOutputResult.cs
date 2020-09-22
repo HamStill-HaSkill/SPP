@@ -7,6 +7,6 @@ namespace TracerOutput
 {
     interface IOutputResult
     {
-        void OutputResult(ITracer tracer);
+        void OutputResult(string result);
     }
 }

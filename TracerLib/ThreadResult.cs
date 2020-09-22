@@ -9,9 +9,8 @@ namespace TracerLib
         public int Id { get; set; }
         public long Time { get; set; }
         public List<TraceResult> Methods { get; set; }
-        public ThreadResult(int id)
+        public ThreadResult()
         {
-            Id = id;
             Methods = new List<TraceResult>();
             Time = 0;
         }

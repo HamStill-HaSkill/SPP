@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
 using TracerLib;
 
 namespace TracerOutput
@@ -9,7 +12,12 @@ namespace TracerOutput
     {
         public string Serialize(ITracer tracer)
         {
-            throw new NotImplementedException();
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ProgramThreads));
+            using (StringWriter textWriter = new StringWriter())
+            {
+                xmlSerializer.Serialize(textWriter, tracer.TraceResult());
+                return textWriter.ToString();
+            }
         }
     }
 }
