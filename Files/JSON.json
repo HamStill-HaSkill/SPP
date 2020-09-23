@@ -2,20 +2,20 @@
   "Threads": [
     {
       "Id": 1,
-      "Time": 1314,
+      "Time": 1339,
       "Methods": [
         {
-          "Time": 814,
+          "Time": 838,
           "MethodName": "TestMethod",
           "ClassName": "TracerTest",
           "Methods": [
             {
-              "Time": 713,
+              "Time": 735,
               "MethodName": "TesterBBBBBBBBBB",
               "ClassName": "TracerTestSecond",
               "Methods": [
                 {
-                  "Time": 207,
+                  "Time": 223,
                   "MethodName": "TesterAAAAAAAAA",
                   "ClassName": "TracerTestSecond",
                   "Methods": []
@@ -25,7 +25,7 @@
           ]
         },
         {
-          "Time": 500,
+          "Time": 501,
           "MethodName": "TestTestTset",
           "ClassName": "TracerTest",
           "Methods": [
@@ -41,10 +41,10 @@
     },
     {
       "Id": 5,
-      "Time": 501,
+      "Time": 502,
       "Methods": [
         {
-          "Time": 501,
+          "Time": 502,
           "MethodName": "TestTestTset",
           "ClassName": "TracerTest",
           "Methods": [

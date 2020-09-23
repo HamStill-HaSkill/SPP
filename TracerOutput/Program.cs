@@ -31,12 +31,6 @@ namespace TracerOutput
             outputResultToFile.OutputResult(serializerJSON.Serialize(tracer));
             outputResultToFile.SavePath = "C:\\Users\\Xiaomi\\source\\repos\\TracerLib\\SPP\\Files\\XML.xml";
             outputResultToFile.OutputResult(serializerXML.Serialize(tracer));
-            Console.WriteLine(JsonConvert.SerializeObject(new TraceResult
-            {
-                MethodName = "Method",
-                ClassName = "TracerTests.OneMethod"
-            }));
-            Console.WriteLine(JsonConvert.SerializeObject(tracer.TraceResult().Threads[0].Methods[0]));
 
         }
     }

@@ -20,8 +20,9 @@ namespace TracerLib
         }
         public void StopTrace()
         {
-            Stopwatch stopWatch = new Stopwatch();
-            watchesStack.TryPop(out stopWatch);
+            var stopWatch = new Stopwatch();
+            if (watchesStack.Count > 0)
+                while (!watchesStack.TryPop(out stopWatch));
             stopWatch.Stop();
 
             // Get id of the current thread
@@ -39,13 +40,15 @@ namespace TracerLib
 
             // Add child methods to their parent methods
             TraceResult temp = new TraceResult();
-            timesStack.TryPeek(out temp);
+            if (timesStack.Count > 0)
+                while(!timesStack.TryPeek(out temp));
             if (temp != null)
             {
                 if (temp.Methodlevel > 0)
                 {
                     result.Methods.Add(temp);
-                    timesStack.TryPop(out _);
+                    if (timesStack.Count > 0)
+                        while (!timesStack.TryPop(out temp)) ;
                 }
             }
             timesStack.Push(result);
