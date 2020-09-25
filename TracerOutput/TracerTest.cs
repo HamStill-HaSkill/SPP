@@ -17,7 +17,12 @@ namespace TracerOutput
         {
             _tracer.StartTrace();
             TracerTestSecond testik = new TracerTestSecond(_tracer);
-            testik.TesterBBBBBBBBBB();
+            var testThread = new Thread(() =>
+            {
+                testik.TesterBBBBBBBBBB();
+            });
+            testThread.Start();
+            testThread.Join();
             Thread.Sleep(100);
             _tracer.StopTrace();
         }

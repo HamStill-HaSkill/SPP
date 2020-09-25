@@ -3,27 +3,13 @@
   <Threads>
     <ThreadResult>
       <Id>1</Id>
-      <Time>1339</Time>
+      <Time>1333</Time>
       <Methods>
         <TraceResult>
-          <Time>838</Time>
+          <Time>832</Time>
           <MethodName>TestMethod</MethodName>
           <ClassName>TracerTest</ClassName>
-          <Methods>
-            <TraceResult>
-              <Time>735</Time>
-              <MethodName>TesterBBBBBBBBBB</MethodName>
-              <ClassName>TracerTestSecond</ClassName>
-              <Methods>
-                <TraceResult>
-                  <Time>223</Time>
-                  <MethodName>TesterAAAAAAAAA</MethodName>
-                  <ClassName>TracerTestSecond</ClassName>
-                  <Methods />
-                </TraceResult>
-              </Methods>
-            </TraceResult>
-          </Methods>
+          <Methods />
         </TraceResult>
         <TraceResult>
           <Time>501</Time>
@@ -41,11 +27,30 @@
       </Methods>
     </ThreadResult>
     <ThreadResult>
-      <Id>5</Id>
-      <Time>502</Time>
+      <Id>4</Id>
+      <Time>721</Time>
       <Methods>
         <TraceResult>
-          <Time>502</Time>
+          <Time>721</Time>
+          <MethodName>TesterBBBBBBBBBB</MethodName>
+          <ClassName>TracerTestSecond</ClassName>
+          <Methods>
+            <TraceResult>
+              <Time>215</Time>
+              <MethodName>TesterAAAAAAAAA</MethodName>
+              <ClassName>TracerTestSecond</ClassName>
+              <Methods />
+            </TraceResult>
+          </Methods>
+        </TraceResult>
+      </Methods>
+    </ThreadResult>
+    <ThreadResult>
+      <Id>6</Id>
+      <Time>501</Time>
+      <Methods>
+        <TraceResult>
+          <Time>501</Time>
           <MethodName>TestTestTset</MethodName>
           <ClassName>TracerTest</ClassName>
           <Methods>

@@ -137,6 +137,37 @@ namespace TracerLib
                 _tracer.StopTrace();
             }
         }
+        static public class AsyncThreads
+        {
+            public static void MainMethod()
+            {
+                var testThread1 = new Thread(() =>
+                {
+                    Method1();
+                });
+                var testThread2 = new Thread(() =>
+                {
+                    Method2();
+                });
+                testThread1.Start();
+                testThread2.Start();
+                testThread1.Join();
+                testThread2.Join();
+            }
+            public static void Method1()
+            {
+                _tracer.StartTrace();
+                Thread.Sleep(500);
+                _tracer.StopTrace();
+            }
+            public static void Method2()
+            {
+                Thread.Sleep(200);
+                _tracer.StartTrace();
+                Thread.Sleep(800);
+                _tracer.StopTrace();
+            }
+        }
         public static int GetCountOfMethods(TraceResult[] methodsList, int count)
         {
             foreach (var method in methodsList)
@@ -237,6 +268,20 @@ namespace TracerLib
             ManyThreads.MainMethod();
             long expected = 4;
             var actual = _tracer.TraceResult().Threads.Count;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ComparingMethodNamesInAsyncThread()
+        {
+            AsyncThreads.MainMethod();
+            string expected = " Method1 Method2";
+            string actual = "";
+            for (int i = 0; i < _tracer.TraceResult().Threads.Count; i++)
+            {
+                var res = _tracer.TraceResult();
+                actual += " " + (_tracer.TraceResult().Threads[i].Methods[0].MethodName);
+            }
             Assert.AreEqual(expected, actual);
         }
     }
